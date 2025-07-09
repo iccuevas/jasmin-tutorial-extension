@@ -1,0 +1,29 @@
+fn bar(reg u64 a) -> reg u64
+{
+  a += 2;
+  return a;
+}
+
+export
+fn foo(reg u64 r) -> reg u64 {
+  r = r;
+  r = bar(r);
+  #inline r = bar(r);
+  return r;
+}
+
+/*
+foo:
+  movq    %rsp, %rsi
+  andq    $-8, %rsp
+  movq    %rdi, %rax    r = r;
+  call    Lbar$1        bar(r);
+Lfoo$1:
+  addq    $2, %rax      #inline bar(r);
+  movq    %rsi, %rsp
+  ret
+
+Lbar$1:
+  addq    $2, %rax
+  ret
+*/

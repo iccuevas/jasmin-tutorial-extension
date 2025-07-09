@@ -1,0 +1,34 @@
+export
+fn multiply_matrices_jazz(
+  reg u64 a b c n
+)
+{
+  reg u64 sum temp offset i j k;
+
+  i = #set0();
+  while (i < n) {
+    j = #set0();
+    while (j < n) {
+      sum = #set0();
+      k = #set0();
+      while (k < n) {
+        offset = i;
+        offset *= n;
+        offset += k;
+        temp = (64u)[a + offset * 8];
+        offset = k;
+        offset *= n;
+        offset += j;
+        temp *= (64u)[b + offset * 8];
+        sum += temp;
+        k += 1;
+      }
+      offset = i;
+      offset *= n;
+      offset += j;
+      (u64)[c + offset * 8] = sum;
+      j += 1;
+    }
+    i += 1;
+  }
+}

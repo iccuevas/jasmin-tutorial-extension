@@ -1,0 +1,44 @@
+export
+fn multiply_matrices_optimized_jazz(
+  reg u64 a b c n
+)
+{
+  reg u64 r11 r12 r13 r10 rdx rbp rbx r8 r9 rdi rcx rax rsi;
+  reg bool cond;
+  if (n != 0) {
+    r11 = a;
+    rdi = #LEA(n * 8);
+    r13 = #set0();
+    r8 = #LEA(r11 + rdi);
+    r12 = rcx;
+    rbp = b;
+    rbx = c;
+    while {
+      r10 = rbp;
+      r9 = #set0();
+      while {
+        rcx = r10;
+        rax = r11;
+        rsi = #set0();
+        while {
+          rdx = [rax];
+          rdx *= [rcx];
+          rax += 8;
+          rcx += rdi;
+          rsi += rdx;
+        } (r8 != rax)
+        rax = #LEA(r9 + 1);
+        [rbx + r9 * 8] = rsi;
+        r10 += 8;
+        cond = rax != r12;
+        r9 = rax if (cond);
+      } (cond)
+      rax = #LEA(r13 + 1);
+      rbx += rdi;
+      r11 += rdi;
+      r8 += rdi;
+      cond = (r13 != r9);
+      r13 = rax if (cond);
+    } (cond)
+  }
+}
