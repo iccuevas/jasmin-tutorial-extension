@@ -20,8 +20,7 @@ which performs matrix multiplication for n×n matrices.
 ├── matrix.c                   # C implementation of multiply_matrices
 ├── matrix.jazz                # Naive Jasmin implementation
 ├── matrix_optimized.jazz      # Jasmin implementation optimized via reverse-engineered -O3 assembly
-├── speed.c                    # Benchmarking code
-├── test.c                     # Correctness testing code
+├── test.c                     # Benchmark and correctness test
 └── README.md                  # This file
 ```
 
