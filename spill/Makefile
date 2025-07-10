@@ -2,7 +2,7 @@ include ../Makefile.base
 
 .PHONY: all clean
 
-all: test
+all: test spillO0.s spillO3.s
 
 test: complex_sum.s complex_sum_jazz.s test_complex_sum.c
 	$(CC) $(CFLAGS) -O3 -o complex.out test_complex_sum.c complex_sum.s complex_sum_jazz.s
