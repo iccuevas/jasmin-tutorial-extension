@@ -1,0 +1,140 @@
+// C ABI convention ensures that the first 6 parameters are
+// passed in the following registers rdi, rsi, rdx, rcx, r8, r9.
+//
+// Therefore, arg1=rdi, arg2=rsi, arg3=rdx, arg4=rcx, arg5=r8, arg6=r9
+
+export
+fn register_pressure_jazz(reg u64 rdi rsi rdx rcx r8 r9) -> reg u64
+{
+  // Now look at `complex_sum.s` and try to implement
+  // that function here
+
+  // These registers are never spilled
+  reg u64 rax r11 r15 r12 r13 r10 rbx;
+  // These registers are spilled
+  reg u64 rbp r14;
+  reg u64 rsi_1 rdx_1 rcx_1 r14_1 rdi_1 rbp_1 r8_1;
+  reg u64 r14_2 rdi_2 rcx_2 rdx_2 rbp_2 r14_3 rbp_3;
+
+  /*
+    Exercise: Complete this function.
+    The variable names match with the generated assembly
+    code from C compiler.
+  */
+  () = #spill(r9);  // This spill is not in the assembly
+                    // code but it shouldn't be here
+  rbx = #LEA(r15 + r15);
+  r8 = #LEA(rbx + r12);
+  r14 *= r8;
+  r13 = #LEA(r10 - 4);
+  rcx = r13;
+  () = #spill(rsi); // -72
+  rcx -= r11;
+  r11 = rsi;
+  rsi_1 = rdi;
+  () = #spill(rdx); // -8
+  r11 *= rcx;
+  () = #spill(rcx); // -112
+  rcx_1 = rdx;
+  rsi_1 += r14;
+  () = #spill(r14); // -120
+  rdx_1 = r15;
+  rdx_1 -= rax;
+  () = #spill(rdi); // -64
+  rcx_1 -= r11;
+  () = #spill(r8);  // -56
+  r14_1 = rcx_1;
+  () = #spill(rcx_1); // -104
+  r14_1 *= rsi_1;
+  rdx_1 -= r14_1;
+  () = #spill(r14_1); // -96
+  rbp *= rdx_1;
+  r14_2 = rdx_1;
+	rdx_1 = r12;
+	rdi_1 = #LEA(r10 + rbp);
+	() = #spill(rbp);   // -48
+	rbp_1 = r8;
+	() = #unspill(r14);
+  r8_1 = r14;
+	() = #spill(rdi_1); // -40
+  rdi_2 = rdi_1 * rbx;
+	r8_1 += r11;
+	() = #spill(r8_1);  // -80
+  () = #unspill(r8_1);
+  r14_3 = r8_1;
+  rdx_1 -= rdi_2;
+	rcx_2 = rdi_2;
+	() = #unspill(rcx);
+  rdi_2 = rcx;
+	() = #spill(rdx_1); // -32
+  rdx_2 = rdx_1;
+	rdx_2 += r13;
+	rbp_1 *= rdx_2;
+	rdi_2 *= rbp_1;
+	() = #spill(rbp_1); // -24
+	() = #unspill(rcx_1);
+  rbp_3 = rcx_1;
+	r14_3 -= rdi_2;
+	rdi_2 = rax;
+	() = #unspill(rdx);
+  rax += rdx;
+  () = #unspill(rdi);
+  rax += rdi;
+  r14_3 *= rsi_1;
+	rax += r10;
+	() = #unspill(rsi);
+  rax += rsi;
+	rax += r13;
+  () = #unspill(r9);
+	rax += r9;
+	rbp_3 *= r14_3;
+	rax = #LEA(rax + r12 * 2);
+	rdi_2 -= rbp_3;
+	() = #spill(rbp_3); // -88
+	r14_2 *= rdi_2;
+	rbp_2 = rdi_2;
+	rdi_2 = r10;
+  rdi_2 -= r14_2;
+	rcx_2 *= rdi_2;
+	() = #spill(rdi_2); // -16
+	() = #unspill(rdx_1);
+	rdx_1 += rcx_2;
+	() = #unspill(rcx);
+  rax += rcx;
+  rax += rbx;
+	rax += r11;
+	() = #unspill(r8);
+  rax += r8;
+  () = #unspill(rcx_1);
+  rax += rcx_1;
+	rax += rsi_1;
+	() = #unspill(r8_1);
+  rax += r8_1;
+  () = #unspill(rdi_1);
+	rax += rdi_1;
+	() = #unspill(rbp_1);
+	rsi_1 = #LEA(r15 + rbp_1);
+	rax += rdx_2;
+	rdx_2 *= rdx_1;
+	r15 = #LEA(rsi_1 + rsi_1 * 2);
+	rax += r15;
+	r14_3 += rax;
+	() = #unspill(r14_1);
+  rax = r14_1;
+  () = #unspill(r14);
+	rax += r14;
+	r14_3 += rbp_2;
+	() = #unspill(rdi_2);
+  r14_3 += rdi_2;
+	() = #unspill(rbp);
+  rax += rbp;
+	rcx_2 += r14_3;
+	() = #unspill(rbp_3);
+  rax += rbp_3;
+	rax += r14_2;
+	rcx_2 += rdx_1;
+	rax = #LEA(rcx_2 + rax * 2);
+  rax -= rdx_2;
+
+  return rax;
+}

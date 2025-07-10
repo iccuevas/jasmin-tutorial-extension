@@ -10,7 +10,7 @@
 
 - `spill_success.jazz` includes a few spills to avoid register exhaustion. Now try to compile this program using `jasminc -pasm spill_success.jazz`.
 
-- `complex_sum.c` provides another example where variables are spilled even when compiled with `-O3`. This highlights a useful strategy: We can look at the compiler-generated assembly (`.s` file) to guide our Jasmin implementation.
+- `complex_sum.c` provides another example where variables are spilled even when compiled with `-O3`. This highlights a useful strategy: We can look at the compiler-generated assembly (`.s` file) to guide our Jasmin implementation. It includes an exercise.
 
 > Note: `-pasm` flag prints the generated assembly code by Jasmin compiler.
 

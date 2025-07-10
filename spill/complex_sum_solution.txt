@@ -1,0 +1,15 @@
+/* This code belongs to the missing part */
+rax = #LEA(r9 + 1);
+r11 = #LEA(rdi * 8);
+r14 = #LEA(rsi + rsi * 2);
+rsi = #LEA(rdx + 11);
+r11 -= rdi;
+rdx = #LEA(r8 + r8 * 8);
+rdi = #LEA(rcx - 2);
+r9 = rsi;
+r10 = rdx;
+r15 = #LEA(r11 + r14);
+r9 -= rdi;
+r10 *= rax;
+r12 = #LEA(r9 + r9 * 2);
+rbp = r9;
