@@ -17,16 +17,37 @@
 For instance, the following C compiler output:
 
 ```asm
-movq	%rsi, -72(%rsp)     # spill
-addq	-72(%rsp), %rax     # unspill
+movq	%rax, -96(%rsp)     # spill
+movq	-96(%rsp), %rdi     # unspill
+...
+leaq	(%rcx,%rdi), %rax   # lea
 ```
 
 can be translated into Jasmin as:
 
 ```jasmin
-() = #spill(rsi);
-() = #unspill(rsi);
-rax += rsi;
+() = #spill(var);
+...
+() = #unspill(var);
+rax = #LEA(rcx + var);
+```
+
+But, this notation doesn't consider the following case which can save a register:
+
+```asm
+movq	%rsi, -72(%rsp)     # spill
+...
+addq	-72(%rsp), %rax     # unspill
+```
+
+we can replicate that case by declaring a `stack` variable as follows:
+
+```jasmin
+reg u64 rsi;
+stack u64 rsi_s;
+rsi_s = rsi;
+...
+rax += rsi_s;
 ```
 
 This approach helps mimic the compiler's register management strategy and can lead to more efficient Jasmin code.
