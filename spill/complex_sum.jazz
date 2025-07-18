@@ -18,7 +18,7 @@ fn register_pressure_jazz(reg u64 rdi rsi rdx rcx r8 r9) -> reg u64
   /*
     Exercise: Complete this function.
     The variable names match with the generated assembly
-    code from C compiler.
+    code from C compiler (`complex_sum.s`).
 
     Remember: there is a one-to-one relation between Jasmin
     code and Assembly. Therefore, each line here represents
