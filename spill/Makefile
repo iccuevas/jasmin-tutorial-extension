@@ -20,4 +20,4 @@ spillO3.s: spill.c
 	$(CC) $(CFLAGS) -O3 -S -o spillO3.s spill.c
 
 clean:
-	rm -f *.s *.out
+	rm -f spillO0.s spillO3.s complex_sum_jazz.s *.out
